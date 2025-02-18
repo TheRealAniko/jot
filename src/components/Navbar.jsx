@@ -18,12 +18,12 @@ function Navbar() {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/notes">
+                            <NavLink to="/new-notes">
                                 <NotebookPen className="h-5 w-5" />
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="#">
+                            <NavLink to="/user">
                                 <User className="h-5 w-5" />
                             </NavLink>
                         </li>
