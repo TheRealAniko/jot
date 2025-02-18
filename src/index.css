@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .input-custom {
+        @apply bg-background text-text input input-bordered flex items-center gap-2 placeholder-gray-400;
+    }
+    .textarea-custom {
+        @apply bg-background text-text input input-bordered w-full p-3 h-40 rounded-lg resize-none placeholder-gray-400;
+    }
+}
+
 .bg-dotted {
     background-color: #0d0d0d;
     background-image: radial-gradient(
