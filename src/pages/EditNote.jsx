@@ -1,12 +1,10 @@
-import { useParams, Link, useNavigate } from "react-router";
+import { useParams, Link } from "react-router";
 import notes from "../data/data";
-import { Save, Trash2, Ban } from "lucide-react";
 import NoteForm from "../components/NoteForm";
 
 const EditNote = () => {
     const { id } = useParams();
     const note = notes.find((n) => n.id.toString() === id);
-    const navigate = useNavigate();
 
     if (!note)
         return <p className="text-center text-gray-400">Note not found</p>;
