@@ -57,27 +57,27 @@ const NoteForm = ({ initialData = {}, onSubmit, onDelete }) => {
                 </select>
 
                 {/* Icon-Leiste unten */}
-                <div className="flex justify-end space-x-4 mt-6">
+                <div className="flex justify-end space-x-4 mt-6 border-t border-border pt-4">
                     <button
                         type="submit"
                         title="Save"
-                        className="text-gray-400 hover:text-green-500">
+                        className="p-2 rounded-lg hover:bg-secondary">
                         <Save className="w-6 h-6" />
                     </button>
                     <button
                         type="button"
                         title="Cancel"
                         onClick={() => navigate(-1)}
-                        className="text-gray-400 hover:text-yellow-500">
-                        <Ban className="w-6 h-6" />
+                        className="p-2 rounded-lg hover:bg-yellow-500 transition-colors duration-200">
+                        <Ban className="w-5 h-5 text-text" />
                     </button>
                     {initialData.id && (
                         <button
                             type="button"
                             title="Delete"
                             onClick={onDelete}
-                            className="text-gray-400 hover:text-red-500">
-                            <Trash2 className="w-6 h-6" />
+                            className="p-2 rounded-lg hover:bg-red-500">
+                            <Trash2 className="w-5 h-5 text-text" />
                         </button>
                     )}
                 </div>
