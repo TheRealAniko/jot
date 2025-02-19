@@ -1,10 +1,18 @@
-import { useParams, Link } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
 import { Pencil, Trash2 } from "lucide-react";
-import notes from "../data/data";
+import { useNotes } from "../context/context";
 
 const NoteDetail = () => {
+    const { notes, delNote } = useNotes();
     const { id } = useParams();
+    const navigate = useNavigate();
     const note = notes.find((n) => n.id.toString() === id);
+
+    const handleDelete = (noteId) => {
+        delNote(noteId);
+        navigate("/");
+    };
+
     const categoryColors = {
         work: "bg-categories-work",
         personal: "bg-categories-personal",
@@ -54,7 +62,9 @@ const NoteDetail = () => {
                         <Pencil className="w-5 h-5 text-text" />
                     </Link>
                     <button
-                        title="Delete Note"
+                        type="button"
+                        title="Delete"
+                        onClick={() => handleDelete(note.id)}
                         className="p-2 rounded-lg hover:bg-red-500 transition-colors duration-200">
                         <Trash2 className="w-5 h-5 text-text" />
                     </button>

@@ -9,12 +9,14 @@ const NoteForm = ({ initialData = {}, onSubmit, onDelete }) => {
     const [content, setContent] = useState(initialData.content || "");
     const [category, setCategory] = useState(initialData.category || "work");
 
+    const generateUniqueId = () => crypto.randomUUID();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!title || !content) return;
 
         const newNote = {
-            id: initialData.id || Date.now(),
+            id: initialData.id || generateUniqueId(),
             title,
             content,
             category,
@@ -75,7 +77,7 @@ const NoteForm = ({ initialData = {}, onSubmit, onDelete }) => {
                         <button
                             type="button"
                             title="Delete"
-                            onClick={onDelete}
+                            onClick={() => onDelete(initialData.id)}
                             className="p-2 rounded-lg hover:bg-red-500">
                             <Trash2 className="w-5 h-5 text-text" />
                         </button>

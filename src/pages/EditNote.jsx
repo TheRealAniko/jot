@@ -1,13 +1,23 @@
-import { useParams, Link } from "react-router";
-import notes from "../data/data";
+import { useParams, Link, useNavigate } from "react-router";
 import NoteForm from "../components/NoteForm";
+import { useNotes } from "../context/context";
 
 const EditNote = () => {
     const { id } = useParams();
-    const note = notes.find((n) => n.id.toString() === id);
+    const { notes, updateNote, delNote } = useNotes();
+    const navigate = useNavigate();
 
-    if (!note)
-        return <p className="text-center text-gray-400">Note not found</p>;
+    const noteToEdit = notes.find((n) => n.id.toString() === id);
+
+    const handleSave = (updatedNote) => {
+        updateNote(updatedNote);
+        navigate("/");
+    };
+
+    const handleDelete = (noteId) => {
+        delNote(noteId);
+        navigate("/");
+    };
 
     return (
         <div className="max-w-4xl mx-auto py-10">
@@ -15,11 +25,15 @@ const EditNote = () => {
                 <Link to="/" className="hover:underline">
                     Home
                 </Link>{" "}
-                / <span className="text-text">Edit: {note.title}</span>
+                / <span className="text-text">Edit: {notes.title}</span>
             </div>
 
             <div className="w-full bg-background rounded-lg border border-border overflow-hidden p-6">
-                <NoteForm initialData={note} />
+                <NoteForm
+                    initialData={noteToEdit}
+                    onSubmit={handleSave}
+                    onDelete={handleDelete}
+                />
             </div>
         </div>
     );

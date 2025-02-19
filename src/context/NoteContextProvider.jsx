@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NoteContext } from "./context";
 
 const NoteContextProvider = ({ children }) => {
-    const [notes, setNotes] = useState([]);
+    // 🔄 Notes immer aus localStorage laden, wenn Component lädt
+    const [notes, setNotes] = useState(() => {
+        return JSON.parse(localStorage.getItem("notes")) || [];
+    });
 
+    // 🔥 Neuen Eintrag hinzufügen & sofort in localStorage speichern
     const addNote = (newNote) => {
         setNotes((prevNotes) => {
             const updatedNotes = [newNote, ...prevNotes];
@@ -11,14 +15,32 @@ const NoteContextProvider = ({ children }) => {
             return updatedNotes;
         });
     };
+    const updateNote = (updatedNote) => {
+        setNotes((prevNotes) => {
+            const updatedNotes = prevNotes.map((note) =>
+                note.id === updatedNote.id ? updatedNote : note
+            );
+            localStorage.setItem("notes", JSON.stringify(updatedNotes));
+            return updatedNotes;
+        });
+    };
 
-    const [myNotes, setMyNotes] = useState(
-        JSON.parse(localStorage.getItem("notes")) || []
-    );
+    const delNote = (id) => {
+        setNotes((prevNotes) => {
+            const updatedNotes = prevNotes.filter((note) => note.id !== id);
+            localStorage.setItem("notes", JSON.stringify(updatedNotes));
+            return updatedNotes;
+        });
+    };
+
+    // ⚡ LocalStorage bei jeder Änderung von notes automatisch aktualisieren
+    useEffect(() => {
+        localStorage.setItem("notes", JSON.stringify(notes));
+    }, [notes]);
 
     return (
         <NoteContext.Provider
-            value={{ notes, setNotes, addNote, myNotes, setMyNotes }}>
+            value={{ notes, setNotes, addNote, updateNote, delNote }}>
             {children}
         </NoteContext.Provider>
     );
