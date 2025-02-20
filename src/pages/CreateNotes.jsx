@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router";
 import NoteForm from "../components/NoteForm";
 import { useNotes } from "../context/context";
 import { ToastContainer, toast } from "react-toastify";
+import MarkdownInfo from "../components/MarkdownInfo";
 
 const CreateNotes = () => {
     const { addNote } = useNotes();
@@ -27,6 +28,7 @@ const CreateNotes = () => {
             <div className="w-full bg-background rounded-lg border border-border overflow-hidden p-6">
                 <NoteForm onSubmit={handleSave} />
             </div>
+            <MarkdownInfo />
             <ToastContainer theme="dark" />
         </div>
     );
