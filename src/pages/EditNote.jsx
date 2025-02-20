@@ -1,6 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router";
 import NoteForm from "../components/NoteForm";
 import { useNotes } from "../context/context";
+import { ToastContainer, toast } from "react-toastify";
 
 const EditNote = () => {
     const { id } = useParams();
@@ -11,12 +12,21 @@ const EditNote = () => {
 
     const handleSave = (updatedNote) => {
         updateNote(updatedNote);
-        navigate(-1);
+        toast.success("Changes saved successfully! 🎉");
+        setTimeout(() => {
+            navigate("/"); // Nach dem Toast zur Startseite navigieren
+        }, 1500);
     };
 
     const handleDelete = (noteId) => {
-        delNote(noteId);
-        navigate("/");
+        const confirmed = window.confirm(
+            "Are you sure you want to delete this note? 🗑️"
+        );
+        if (confirmed) {
+            delNote(noteId);
+            toast.success("Poof! Note deleted. 🪄✨");
+            setTimeout(() => navigate("/"), 1500);
+        }
     };
 
     return (
@@ -35,6 +45,7 @@ const EditNote = () => {
                     onDelete={handleDelete}
                 />
             </div>
+            <ToastContainer theme="dark" />
         </div>
     );
 };

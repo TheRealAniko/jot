@@ -5,6 +5,7 @@ import CreateNotes from "./pages/CreateNotes";
 import NoteDetail from "./pages/NoteDetail";
 import EditNotes from "./pages/EditNote";
 import NoteContextProvider from "./context/NoteContextProvider";
+import { ToastContainer } from "react-toastify";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                         <Route path="edit/:id" element={<EditNotes />} />
                     </Route>
                 </Routes>
+                <ToastContainer theme="dark" />
             </BrowserRouter>
         </NoteContextProvider>
     );
