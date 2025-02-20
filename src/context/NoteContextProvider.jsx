@@ -33,6 +33,8 @@ const NoteContextProvider = ({ children }) => {
         });
     };
 
+    const [filter, setFilter] = useState("all");
+
     // ⚡ LocalStorage bei jeder Änderung von notes automatisch aktualisieren
     useEffect(() => {
         localStorage.setItem("notes", JSON.stringify(notes));
@@ -40,7 +42,15 @@ const NoteContextProvider = ({ children }) => {
 
     return (
         <NoteContext.Provider
-            value={{ notes, setNotes, addNote, updateNote, delNote }}>
+            value={{
+                notes,
+                setNotes,
+                addNote,
+                updateNote,
+                delNote,
+                filter,
+                setFilter,
+            }}>
             {children}
         </NoteContext.Provider>
     );

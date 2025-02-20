@@ -11,7 +11,7 @@ const EditNote = () => {
 
     const handleSave = (updatedNote) => {
         updateNote(updatedNote);
-        navigate("/");
+        navigate(-1);
     };
 
     const handleDelete = (noteId) => {

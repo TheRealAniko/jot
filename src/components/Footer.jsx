@@ -8,13 +8,13 @@ function Footer() {
                 <div className="flex items-center space-x-3">
                     <Grip />
                     <p className="text-center md:text-left">
-                        © {new Date().getFullYear()} - All right reserved
+                        © {new Date().getFullYear()} Jot...
                     </p>
                 </div>
 
                 {/* Slogan */}
                 <div className="text-center">
-                    <p>Jot... Empty your brain cache. No data loss.</p>
+                    <p>Empty your brain cache. No memory loss.</p>
                 </div>
 
                 {/* Social Icons */}

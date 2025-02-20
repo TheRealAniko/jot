@@ -19,3 +19,14 @@
     );
     background-size: 15px 15px;
 }
+.markdown h1 {
+    @apply text-3xl font-bold mb-4;
+}
+
+.markdown ul {
+    @apply list-disc pl-5 mb-4;
+}
+
+.markdown a {
+    @apply text-blue-400 underline hover:text-blue-600;
+}

@@ -1,6 +1,8 @@
 import { useParams, Link, useNavigate } from "react-router";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNotes } from "../context/context";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const NoteDetail = () => {
     const { notes, delNote } = useNotes();
@@ -11,6 +13,15 @@ const NoteDetail = () => {
     const handleDelete = (noteId) => {
         delNote(noteId);
         navigate("/");
+    };
+    const index = notes.findIndex((n) => n.id.toString() === id);
+
+    const handlePrev = () => {
+        if (index > 0) navigate(`/notes/${notes[index - 1].id}`);
+    };
+
+    const handleNext = () => {
+        if (index < notes.length - 1) navigate(`/notes/${notes[index + 1].id}`);
     };
 
     const categoryColors = {
@@ -26,11 +37,21 @@ const NoteDetail = () => {
     return (
         <div className="max-w-4xl mx-auto py-10">
             {/* Breadcrumbs über der Notiz */}
-            <div className="text-sm text-gray-400 mb-10">
+            <div className="text-sm text-gray-400 ">
                 <Link to="/" className="hover:underline">
                     Home
                 </Link>{" "}
                 / <span className="text-text">{note.title}</span>
+            </div>
+            <div className="text-sm text-gray-400 my-5 flex justify-between ">
+                <ChevronLeft
+                    onClick={handlePrev}
+                    className="w-7 h-7 text-text"
+                />
+                <ChevronRight
+                    onClick={handleNext}
+                    className="w-7 h-7 text-text"
+                />
             </div>
 
             <div className=" bg-background rounded-lg border border-border overflow-hidden">
@@ -45,9 +66,11 @@ const NoteDetail = () => {
                         <h2 className="text-lg font-semibold  w-full pr-4 mb-4">
                             {note.title}
                         </h2>
-                        <p className="font-light leading-relaxed tracking-wide mb-6">
+                        <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            className="text-text leading-relaxed tracking-wide mb-6 markdown">
                             {note.content}
-                        </p>
+                        </ReactMarkdown>
                         <div className="text-xs text-border">
                             Created:{" "}
                             {new Date(note.createdAt).toLocaleDateString()}

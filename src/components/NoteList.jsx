@@ -2,11 +2,16 @@ import NoteCard from "../components/NoteCard";
 import { useNotes } from "../context/context";
 
 function NoteList() {
-    const { notes } = useNotes();
+    const { notes, filter } = useNotes();
+
+    const filteredNotes =
+        filter === "all"
+            ? notes
+            : notes.filter((note) => note.category === filter);
 
     return (
         <>
-            {notes.map((note) => (
+            {filteredNotes.map((note) => (
                 <NoteCard key={note.id} {...note} />
             ))}
         </>

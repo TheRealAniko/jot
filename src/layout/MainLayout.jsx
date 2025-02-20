@@ -8,7 +8,7 @@ function MainLayout() {
             <header className="sticky top-0 z-50">
                 <Navbar />
             </header>
-            <main className="flex-grow container  mx-auto px-4 text-text">
+            <main className="flex-grow container  mx-auto px-4 py-5 text-text ">
                 <Outlet />
             </main>
             <footer>
