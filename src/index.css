@@ -23,10 +23,22 @@
     @apply text-3xl font-bold mb-4;
 }
 
+.markdown h2 {
+    @apply text-2xl font-semibold mb-3;
+}
+
 .markdown ul {
     @apply list-disc pl-5 mb-4;
 }
 
 .markdown a {
-    @apply text-blue-400 underline hover:text-blue-600;
+    @apply text-primary underline hover:text-primary/80 transition-colors duration-200;
+}
+
+.markdown p {
+    @apply mb-4 leading-relaxed tracking-wide;
+}
+
+.markdown img {
+    @apply rounded-lg border border-border my-5 max-w-full mx-auto;
 }

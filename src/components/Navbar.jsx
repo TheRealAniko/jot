@@ -1,4 +1,4 @@
-import { Home, NotebookPen, User } from "lucide-react";
+import { Home, NotebookPen } from "lucide-react";
 import { Link, NavLink } from "react-router";
 
 function Navbar() {
@@ -20,11 +20,6 @@ function Navbar() {
                         <li>
                             <NavLink to="/new-notes">
                                 <NotebookPen className="h-5 w-5" />
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/user">
-                                <User className="h-5 w-5" />
                             </NavLink>
                         </li>
                     </ul>
