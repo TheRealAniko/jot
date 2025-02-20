@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import NoteForm from "../components/NoteForm";
 import { useNotes } from "../context/context";
+import { ToastContainer, toast } from "react-toastify";
 
 const CreateNotes = () => {
     const { addNote } = useNotes();
@@ -8,7 +9,10 @@ const CreateNotes = () => {
 
     const handleSave = (newNote) => {
         addNote(newNote); // Speichert Notiz in localStorage & Context
-        navigate("/"); // Navigiert nach dem Speichern zurück zur Startseite
+        toast.success("Note saved successfully! 🎉");
+        setTimeout(() => {
+            navigate("/"); // Nach dem Toast zur Startseite navigieren
+        }, 1500);
     };
 
     return (
@@ -23,6 +27,7 @@ const CreateNotes = () => {
             <div className="w-full bg-background rounded-lg border border-border overflow-hidden p-6">
                 <NoteForm onSubmit={handleSave} />
             </div>
+            <ToastContainer theme="dark" />
         </div>
     );
 };

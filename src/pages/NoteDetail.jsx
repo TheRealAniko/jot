@@ -3,6 +3,7 @@ import { Pencil, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNotes } from "../context/context";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { toast } from "react-toastify"; // 🔥 Importiert!
 
 const NoteDetail = () => {
     const { notes, delNote } = useNotes();
@@ -11,9 +12,16 @@ const NoteDetail = () => {
     const note = notes.find((n) => n.id.toString() === id);
 
     const handleDelete = (noteId) => {
-        delNote(noteId);
-        navigate("/");
+        const confirmed = window.confirm(
+            "Are you sure you want to delete this note? 🗑️"
+        );
+        if (confirmed) {
+            delNote(noteId);
+            toast.success("Poof! Note deleted. 🪄✨");
+            setTimeout(() => navigate("/"), 1500);
+        }
     };
+
     const index = notes.findIndex((n) => n.id.toString() === id);
 
     const handlePrev = () => {
@@ -31,12 +39,12 @@ const NoteDetail = () => {
         ideas: "bg-categories-ideas",
         learning: "bg-categories-learning",
     };
+
     if (!note)
         return <p className="text-center text-gray-400">Note not found</p>;
 
     return (
         <div className="max-w-4xl mx-auto py-10">
-            {/* Breadcrumbs über der Notiz */}
             <div className="text-sm text-gray-400 ">
                 <Link to="/" className="hover:underline">
                     Home
@@ -53,30 +61,27 @@ const NoteDetail = () => {
                     className="w-7 h-7 text-text"
                 />
             </div>
-
-            <div className=" bg-background rounded-lg border border-border overflow-hidden">
+            <div className="bg-background rounded-lg border border-border overflow-hidden">
                 <div
-                    className={`px-4 py-1  text-text ${
+                    className={`px-4 py-1 text-text ${
                         categoryColors[note.category] || "bg-gray-500"
                     }`}>
                     {note.category}
                 </div>
                 <div className="card-body">
-                    <div className="">
-                        <h2 className="text-lg font-semibold  w-full pr-4 mb-4">
-                            {note.title}
-                        </h2>
-                        <ReactMarkdown
-                            remarkPlugins={[remarkGfm]}
-                            className="text-text leading-relaxed tracking-wide mb-6 markdown">
-                            {note.content}
-                        </ReactMarkdown>
-                        <div className="text-xs text-border">
-                            Created:{" "}
-                            {new Date(note.createdAt).toLocaleDateString()}
-                        </div>
+                    <h2 className="text-lg font-semibold w-full pr-4 mb-4">
+                        {note.title}
+                    </h2>
+                    <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        className="text-text leading-relaxed tracking-wide mb-6 markdown">
+                        {note.content}
+                    </ReactMarkdown>
+                    <div className="text-xs text-border">
+                        Created: {new Date(note.createdAt).toLocaleDateString()}
                     </div>
                 </div>
+
                 <div className="flex justify-end space-x-4 mt-6 border-t border-border p-2">
                     <Link
                         to={`/edit/${id}`}
